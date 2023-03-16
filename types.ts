@@ -3,8 +3,25 @@ type Patient = {
   name: string;
   surname: string;
   age: number;
-  gender: boolean; // if true male
   phone: number;
   address: string;
   email: string;
+  treatments:  Treatment[]
 };
+
+type Treatment = {
+  id: string,
+  date: string,
+  medicalHistory: string,
+  symptoms: string,
+  tests: string,
+  physicalExamination: string,
+  diagnosis: string,
+  treatmentPlan: string,
+  techniques: string,
+  treatmentExpectations: string,
+  notes: string,
+}
+ 
+
+
