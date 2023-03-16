@@ -1,4 +1,4 @@
-type Patients = {
+type Patient = {
   id: string;
   name: string;
   surname: string;

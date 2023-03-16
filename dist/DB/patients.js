@@ -1,12 +1,13 @@
-import {v4 as uuidv4} from 'uuid';
-
-const patients: Patients[] = [
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.patients = void 0;
+exports.patients = [
     {
-        id: uuidv4(),
+        id: '1',
         name: 'Luca',
         surname: 'Martinelli',
         age: 33,
-        gender: true, // if true male
+        gender: true,
         phone: 1234566,
         address: 'Lucagatan',
         email: 'luca@luca.it',
