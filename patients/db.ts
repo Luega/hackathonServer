@@ -70,8 +70,8 @@ const addTreatment = async (treatment: Treatment, patientId: string) => {
       id: patientId,
     },
     {
-      $set: {
-            treatments: [ treatment ],
+      $push: {
+            treatments: treatment,
       },
     }
   );

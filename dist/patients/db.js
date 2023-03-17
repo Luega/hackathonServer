@@ -90,8 +90,8 @@ const addTreatment = (treatment, patientId) => __awaiter(void 0, void 0, void 0,
     yield col.updateOne({
         id: patientId,
     }, {
-        $set: {
-            treatments: [treatment],
+        $push: {
+            treatments: treatment,
         },
     });
     yield client.close();
