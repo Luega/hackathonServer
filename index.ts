@@ -38,7 +38,7 @@ app.post('/api/patients', async (req: Request, res: Response) => {
   res.json(patient);
 });
 
-app.post('/api/patients/:id/treatments', async (req: Request, res: Response) => {
+app.put('/api/patients/:id/treatments', async (req: Request, res: Response) => {
   const newTreatment: Treatment = {
     id: uuidv4(),
     date: req.body.date,

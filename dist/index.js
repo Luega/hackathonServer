@@ -43,7 +43,7 @@ app.post('/api/patients', (req, res) => __awaiter(void 0, void 0, void 0, functi
     const patient = yield (0, index_1.createPatient)(newPatient);
     res.json(patient);
 }));
-app.post('/api/patients/:id/treatments', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.put('/api/patients/:id/treatments', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newTreatment = {
         id: (0, uuid_1.v4)(),
         date: req.body.date,
