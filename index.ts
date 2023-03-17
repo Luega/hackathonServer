@@ -1,8 +1,11 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { patients } from './DB/patients';
-import { treatments } from './DB/treatments';
+import { Patient, Treatment } from './types';
+import { v4 as uuidv4 } from 'uuid';
+import {
+  getPatients, getPatient, createPatient, addTreatmentToPatient, deletePatient,
+} from './patients/index';
 
 dotenv.config();
 
@@ -12,23 +15,17 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/api/patients', async (req: Request, res: Response) => {
-    const data: Patient[] = patients;
-  res.json(patients);
+  const data: Patient[] = await getPatients();
+  res.json(data);
 });
 
 app.get('/api/patients/:id', async (req: Request, res: Response) => {
-  const data: Patient[] = patients;
-  const patient: Patient[] = data.filter(
-    (patient) => patient.id === req.params.id
-  );
+  const patient: Patient = await getPatient(req.params.id);
   res.json(patient);
 });
 
 app.post('/api/patients', async (req: Request, res: Response) => {
-  console.log(req.body);
-  const data: Patient[] = patients;
   const newPatient: Patient = {
-    id: req.body.id,
     name: req.body.name,
     surname: req.body.surname,
     age: req.body.age,
@@ -37,18 +34,13 @@ app.post('/api/patients', async (req: Request, res: Response) => {
     email: req.body.email,
     treatments: [],
   };
-  data.push(newPatient);
-  res.json(newPatient);
+  const patient: Patient = await createPatient(newPatient);
+  res.json(patient);
 });
 
 app.post('/api/patients/:id/treatments', async (req: Request, res: Response) => {
-  console.log(req.body);
-  const data: Patient[] = patients;
-  const patient: Patient[] = data.filter(
-    (patient) => patient.id === req.params.id
-  );
   const newTreatment: Treatment = {
-    id: req.body.id,
+    id: uuidv4(),
     date: req.body.date,
     medicalHistory: req.body.medicalHistory,
     symptoms: req.body.symptoms,
@@ -60,16 +52,12 @@ app.post('/api/patients/:id/treatments', async (req: Request, res: Response) => 
     treatmentExpectations: req.body.treatmentExpectations,
     notes: req.body.notes,
   };
-  patient[0].treatments.push(newTreatment);
+  const patient: Patient = await addTreatmentToPatient(newTreatment, req.params.id);
   res.json(patient);
 });
 
 app.delete('/api/patients/:id', async (req: Request, res: Response) => {
-  const data: Patient[] = patients;
-  const patientIndex: number = data.findIndex(
-    (patient) => patient.id === req.params.id
-  );
-  data.splice(patientIndex, 1);
+  await deletePatient(req.params.id);
   res.send('Patient removed');
 });
 

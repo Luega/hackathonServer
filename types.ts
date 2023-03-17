@@ -1,5 +1,5 @@
-type Patient = {
-  id: string;
+export type Patient = {
+  id?: string;
   name: string;
   surname: string;
   age: number;
@@ -9,8 +9,8 @@ type Patient = {
   treatments:  Treatment[]
 };
 
-type Treatment = {
-  id: string,
+export type Treatment = {
+  id?: string,
   date: string,
   medicalHistory: string,
   symptoms: string,
